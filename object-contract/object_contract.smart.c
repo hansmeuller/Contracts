@@ -802,6 +802,8 @@ void Invent(void)
 			// SendInventoryMessage
 		}
 	}
+	SendInventorySummary(totalItems);
+}
 
 void Mining(void)
 {
@@ -856,10 +858,64 @@ void Refining(void)
 	}
 
 }
+
+
 void Repair(void)
 {
 	// TODO: Implement and Test
+	
+	// is station/opject active
+	if (getMapValue(STATUS, 0) == 0)
+	{
+		return; // nope
+	}
 }
+
+// details für das zu reparierende Objekt
+getArticleDetails(currentPOLL.parameter); // reparierendes objekt
+
+// notwendig
+long currentStructure = getMapValue(DEFAULT_STRUCTURE, currentPOLL.parameter); // struktur objekt
+long maxStructure = getExtMapValue(DEFAULT_STRUCTURE, currentPOLL.parameter, itemBaseID); // max Struktur
+
+if (currentStructure >= maxStructure)
+{
+	// heil!=repair
+	return;
+}
+
+// ressourcen reparatur
+long repairAmount = maxStructure - currentStructure;
+long availableRepairResources = GetAvailableRepairResources(currentPOLL.actorID); // reparaturmaterialien
+
+// ressourcen?
+if (availableRepairResources >= repairAmount)
+{
+	// repair!
+	setMapValue(DEFAULT_STRUCTURE, currentPOLL.parameter, maxStructure); // struktur =max
+
+	// -ressourcen
+	ConsumeRepairResources(currentPOLL.actorID, repairAmount);
+
+	// message repair
+	SendRepairSuccessMessage(currentPOLL.actorID, currentPOLL.parameter);
+}
+else
+{
+	// -ressourcen vollständige reparatur
+	long partialRepairAmount = availableRepairResources; // repariere so viel wie möglich
+
+	// teilweise reparatur
+	setMapValue(DEFAULT_STRUCTURE, currentPOLL.parameter, currentStructure + partialRepairAmount);
+
+	// -ressourcen
+	ConsumeRepairResources(currentPOLL.actorID, partialRepairAmount);
+
+	// message repair
+	SendPartialRepairMessage(currentPOLL.actorID, currentPOLL.parameter, partialRepairAmount);
+}
+}
+
 void Scan(void)
 {
 	// TODO: Implement and Test
