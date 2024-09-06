@@ -785,7 +785,24 @@ void Invent(void)
 			// SendInventoryMessage
 		}
 
-}
+	}
+
+	// inventar hangar durchlaufen
+	for (long j = 1; j <= hangarAmount; j++)
+	{
+		item = getExtMapValue(currentINFO.hangarsHash, j, itemBaseID);
+		amount = getMapValue(item, GetWichHash());
+
+		if (amount > 0)
+		{
+			// inventar auflisten
+			totalItems += amount;
+
+			// evtl log
+			// SendInventoryMessage
+		}
+	}
+
 void Mining(void)
 {
 	// #### TESTED ###
