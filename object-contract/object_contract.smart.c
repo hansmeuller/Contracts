@@ -916,6 +916,57 @@ else
 }
 }
 
+// abrufen reparaturmaterialien
+long GetAvailableRepairResources(long actorID)
+{
+	// speichern
+	return getMapValue(REPAIR_MATERIALS, actorID); // menge verfügbare reparaturmaterialien
+}
+
+// verbrauchen reparaturmaterialien
+void ConsumeRepairResources(long actorID, long amount)
+{
+	// verbrauche angegebenen reparaturmaterialien
+	long currentResources = getMapValue(REPAIR_MATERIALS, actorID);
+	setMapValue(REPAIR_MATERIALS, actorID, currentResources - amount);
+}
+
+// Nachricht reparatur erfolgreich
+void SendRepairSuccessMessage(long actorID, long objectID)
+{
+	long messageBuffer[8];
+
+	messageBuffer[0] = GAME_SPECIFIC;    // nachrichtentyp
+	messageBuffer[1] = REPAIR;           
+	messageBuffer[2] = objectID;         // ID objekts
+	messageBuffer[3] = 0;                
+	messageBuffer[4] = 0;
+	messageBuffer[5] = 0;
+	messageBuffer[6] = 0;
+	messageBuffer[7] = 0;
+
+	// Nachricht senden (z.B. an den Besitzer oder Log)
+	sendMessage(messageBuffer, actorID);
+}
+
+// Nachricht reparatur nur teilweise erfolgreich
+void SendPartialRepairMessage(long actorID, long objectID, long repairedAmount)
+{
+	long messageBuffer[8];
+
+	messageBuffer[0] = GAME_SPECIFIC;    // Nachrichtentyp
+	messageBuffer[1] = REPAIR;           
+	messageBuffer[2] = objectID;         // ID objekts
+	messageBuffer[3] = repairedAmount;   // menge, die repariert wurde
+	messageBuffer[4] = 0;
+	messageBuffer[5] = 0;
+	messageBuffer[6] = 0;
+	messageBuffer[7] = 0;
+
+	
+	sendMessage(messageBuffer, actorID);
+}
+
 void Scan(void)
 {
 	// TODO: Implement and Test
