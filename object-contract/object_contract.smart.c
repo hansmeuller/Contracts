@@ -967,10 +967,48 @@ void SendPartialRepairMessage(long actorID, long objectID, long repairedAmount)
 	sendMessage(messageBuffer, actorID);
 }
 
+
+// todo test
 void Scan(void)
 {
-	// TODO: Implement and Test
+	// is station active
+	if (getMapValue(STATUS, 0) == 0)
+	{
+		return; // nope
+	}
+
+	// ziel des scans bestimmen
+	long targetID = currentPOLL.parameter;
+
+	// information target
+	long targetType = getExtMapValue(TYPE, targetID, itemBaseID);     // type target
+	long targetSize = getExtMapValue(SIZE, targetID, itemBaseID);     // size target
+	long targetStatus = getMapValue(STATUS, targetID);                // status target
+
+
+	// scan ergebnisse
+	SendScanResult(currentPOLL.actorID, targetID, targetType, targetSize, targetStatus);
 }
+
+void SendScanResult(long actorID, long targetID, long targetType, long targetSize, long targetStatus)
+{
+	long messageBuffer[8];
+
+	messageBuffer[0] = GAME_SPECIFIC;    // nachrichtentyp
+	messageBuffer[1] = SCAN;             // submethod
+	messageBuffer[2] = targetID;         // ID ziel
+	messageBuffer[3] = targetType;       // typ 
+	messageBuffer[4] = targetSize;       // größe
+	messageBuffer[5] = targetStatus;     // status
+	messageBuffer[6] = 0;                // 
+	messageBuffer[7] = 0;                // 
+
+	// nachricht senden
+	sendMessage(messageBuffer, actorID);
+}
+
+
+
 void Store(void)
 {
 	// #### TESTED ####
