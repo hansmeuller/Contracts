@@ -233,11 +233,24 @@ constructor();
 
 void constructor(void) {
 	// this function will be called only once on first activation.
-	authIDs[0] = 1111; //TODO: set initial ID
-	currentPOLL.hash = 0;
-	currentArticle.category = 0;
+	authIDs[0] = GetInitialAuthID(); //TODO: set initial ID
+	// initialisiere Poll /artikel
+	currentPOLL.hash = 0;        // keine umfrage
+	currentPOLL.providerID = 0;   // initialisieren
+	currentPOLL.actorID = 0;      // initialisieren
+
+	currentArticle.category = 0;  // noch kein Artikel aktiv
+
+	// vertrags ID zuweisen contractID
 	contractID = GetContractID();
 }
+
+long GetInitialAuthID(void)
+{
+	// get authID 
+	return GetSender();
+}
+
 
 long GetContractID() {
 	A_To_Tx_After_Timestamp(Get_Creation_Timestamp());
