@@ -762,8 +762,17 @@ void Explode(void)
 }
 void Insure(void)
 {
-	// TODO: Complement and Test if needed
+	// ob versichert 
+	if (insurence > 0)
+	{
+		// ziel versichert
+		return;
+	}
+
 	insurence = currentPOLL.parameter;
+
+	// nachricht senden- versicherung abgeschlossen
+	SendInsuranceSuccessMessage(currentPOLL.actorID, insurence);
 }
 void Invent(void)
 {
