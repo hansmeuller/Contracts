@@ -774,6 +774,24 @@ void Insure(void)
 	// nachricht senden- versicherung abgeschlossen
 	SendInsuranceSuccessMessage(currentPOLL.actorID, insurence);
 }
+
+void SendInsuranceSuccessMessage(long actorID, long insuranceAmount)
+{
+	long messageBuffer[8];
+
+	messageBuffer[0] = GAME_SPECIFIC;    
+	messageBuffer[1] = INSURE;           
+	messageBuffer[2] = insuranceAmount;  // versicherungssumme
+	messageBuffer[3] = 0;                
+	messageBuffer[4] = 0;
+	messageBuffer[5] = 0;
+	messageBuffer[6] = 0;
+	messageBuffer[7] = 0;
+
+	sendMessage(messageBuffer, actorID);
+}
+
+
 void Invent(void)
 {
 	// TODO: Implement and Test if needed
