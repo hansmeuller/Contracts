@@ -1084,6 +1084,8 @@ void Treat(void)
 	{
 		return; // nope
 	}
+
+	long targetID = currentPOLL.parameter;
 }
 
 // support methods
