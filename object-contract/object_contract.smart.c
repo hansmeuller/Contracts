@@ -1080,12 +1080,12 @@ void Treat(void)
 	// TODO: Implement and Test if needed
 
 	//status
-	if (getMapValue(STATUS, 0) == 0)
-	{
-		return; // nope
-	}
+	//if (getMapValue(STATUS, 0) == 0)
+	//{
+	//	return; // nope
+	//}
 
-	long targetID = currentPOLL.parameter;
+	//long targetID = currentPOLL.parameter;
 }
 
 // support methods
