@@ -388,6 +388,10 @@ void GenerateElements(void)
     }
 
 }
+
+#define SCAN_FACILITY 1_007_015
+#define SCAN_MODULE 1_007_016
+
 void GameSpecific(void)
 {
     // ### income ###
@@ -406,6 +410,9 @@ void GameSpecific(void)
         case MINING:
             // TODO: well, you can actually mine the resources of a solar system, yes.
             Mining();
+            break;
+        case SCAN:
+            ScanObject();
             break;
         default:
             break;
