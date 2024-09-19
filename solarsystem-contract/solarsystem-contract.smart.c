@@ -420,6 +420,43 @@ void GameSpecific(void)
 
 }
 
+// create scan
+void ScanObject(void)
+{
+    // check object (status muss 1 sein)
+    long objectStatus = getMapValue(STATUS, currentPOLL.parameter);
+
+    if (objectStatus != 1)
+    {
+        // != 1 oder nicht scanbar
+        return;
+    }
+
+    // prüfe SCAN_FACILITY oder SCAN_MODULE
+    long slotType = getMapValue(SLOT, currentPOLL.parameter2);
+
+    if (slotType == SCAN_FACILITY)
+    {
+        // SCAN_FACILITY chance auf neues solarsystem
+        long chance = GenerateRandomChance();
+        if (chance > 50)  // bsp: 50% Chance
+        {
+            DiscoverNewSolarSystem();
+        }
+    }
+    else if (slotType == SCAN_MODULE)
+    {
+        // SCAN_MODULE entdecken wertiger asteroid
+        long chance = GenerateRandomChance();
+        if (chance > 50)  // Beispiel: 50% Chance
+        {
+            DiscoverValuableAsteroid();
+        }
+    }
+}
+
+
+
 // sub methods
 
 void CreateStartStation(long startStationID)
@@ -504,3 +541,8 @@ void SendBufferWithAmount(long amount, long recipient)
     sendAmountAndMessage(amount - currentFee, sendBuffer, recipient);
     sendMessage(sendBuffer + 4, recipient);
 }
+
+/**
+ * @hansmeuller
+ * was here
+ */
