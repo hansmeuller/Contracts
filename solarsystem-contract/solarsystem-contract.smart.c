@@ -455,6 +455,24 @@ void ScanObject(void)
     }
 }
 
+// zufällige chance generieren
+long GenerateRandomChance(void)
+{
+    Set_A1_A2(currentTX.txId, currentTX.timestamp);
+    SHA256_A_To_B();
+    return Get_B3() % 100;  // zufällige zahl
+}
+
+// neues solarsystem
+void DiscoverNewSolarSystem(void)
+{
+    // new
+    SetSendBufferForTargetContract(GAME_SPECIFIC, CREATE_STATION, 0, 0, 0, 0, 0, 0);
+    SendBufferWithAmount(ONE_WHOLE, currentTX.sender);
+
+    // nachricht an spieler
+    SendDiscoveryMessage(currentTX.sender, "Do legst di nieda");
+}
 
 
 // sub methods
