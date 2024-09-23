@@ -474,6 +474,18 @@ void DiscoverNewSolarSystem(void)
     SendDiscoveryMessage(currentTX.sender, "Do legst di nieda");
 }
 
+// wertvoller asteroid
+void DiscoverValuableAsteroid(void)
+{
+    // entdecke asteroid
+    long asteroidValue = GenerateAsteroidValue();
+    SendAsteroidValueToPlayer(currentTX.sender, asteroidValue);
+
+    // message
+    SendDiscoveryMessage(currentTX.sender, "Barrne vorraus");
+}
+
+
 
 // sub methods
 
