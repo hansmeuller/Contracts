@@ -485,7 +485,11 @@ void DiscoverValuableAsteroid(void)
     SendDiscoveryMessage(currentTX.sender, "Barrne vorraus");
 }
 
-
+// generiere wert
+long GenerateAsteroidValue(void)
+{
+    return (GenerateRandomChance() * 1000);  
+}
 
 // sub methods
 
