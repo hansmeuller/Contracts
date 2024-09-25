@@ -491,6 +491,22 @@ long GenerateAsteroidValue(void)
     return (GenerateRandomChance() * 1000);  
 }
 
+// message to player
+void SendDiscoveryMessage(long recipient, const char* message)
+{
+    long messageBuffer[8];
+    messageBuffer[0] = GAME_SPECIFIC;
+    messageBuffer[1] = SCAN;
+    messageBuffer[2] = 0;
+    messageBuffer[3] = 0;
+    messageBuffer[4] = 0;
+    messageBuffer[5] = 0;
+    messageBuffer[6] = 0;
+    messageBuffer[7] = 0;
+
+    sendMessage(messageBuffer, recipient);
+}
+
 // sub methods
 
 void CreateStartStation(long startStationID)
