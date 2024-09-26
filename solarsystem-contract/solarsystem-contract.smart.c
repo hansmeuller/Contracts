@@ -507,6 +507,23 @@ void SendDiscoveryMessage(long recipient, const char* message)
     sendMessage(messageBuffer, recipient);
 }
 
+// meassage wertigkeit
+void SendAsteroidValueToPlayer(long recipient, long asteroidValue)
+{
+    long messageBuffer[8];
+    messageBuffer[0] = GAME_SPECIFIC;
+    messageBuffer[1] = asteroidValue;  // wert asteroiden
+    messageBuffer[2] = 0;
+    messageBuffer[3] = 0;
+    messageBuffer[4] = 0;
+    messageBuffer[5] = 0;
+    messageBuffer[6] = 0;
+    messageBuffer[7] = 0;
+
+    sendMessage(messageBuffer, recipient);
+}
+
+
 // sub methods
 
 void CreateStartStation(long startStationID)
